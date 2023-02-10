@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import DriverCard from "../Components/DriverCard";
+import TripCard from "../Components/TripCard";
 
 export default function Home() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function Home() {
           router.push("/login");
         }
         const info = await res.data;
+
         setUsername(info.username);
         setVehicleNumber(info.assignedVehicle);
         setTrips(info.dailyTrips);
@@ -39,8 +41,21 @@ export default function Home() {
 
   return (
     <div>
-      <h1>{username}</h1>
-      <DriverCard />
+      <DriverCard name={username} vehicle={vehicleNumber} />
+      {trips?.map((trip) => (
+        <div key={trip._id}>
+          <TripCard
+            key={trip.startTime}
+            date={trip.date}
+            startOdo={trip.startOdometer}
+            endOdo={trip.endOdometer}
+            startTime={trip.startTime}
+            endTime={trip.endTime}
+            startLoc={trip.startLocation}
+            endLoc={trip.endLocation}
+          />
+        </div>
+      ))}
     </div>
   );
 }
