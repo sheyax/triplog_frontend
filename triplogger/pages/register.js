@@ -13,7 +13,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const response = await axios(
-        "https://triplog-db-9ptr-na6kt6k2n-sheyax.vercel.app/auth/driver/register",
+        "https://hfjn88-5000.preview.csb.app/auth/driver/register",
         {
           method: "POST",
           headers: {
