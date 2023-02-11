@@ -37,10 +37,9 @@ export default function Home() {
     getUser();
   }, []);
 
-  console.log(username, vehicleNumber, trips);
-
   let totalTrip = 0;
   let totalWorkHours = 0;
+  let totalOverTime = 0;
   // Total Trip Function
   trips.forEach((data) => {
     totalTrip += data.endOdometer - data.startOdometer;
@@ -50,25 +49,32 @@ export default function Home() {
     let endingTime = new Date(`${data.date}T${data.endTime}`).getTime();
     let workingHours = (endingTime - startingTime) / 60000 / 60;
     totalWorkHours += workingHours;
+
+    //OverTime
+    if (data.endTime >= "18:00" && data.endTime < "7:00") {
+      totalOverTime += workingHours;
+    }
   });
 
-  console.log(totalWorkHours);
-  
-  const logout= async ()=>{
-    try{
-      const res= await axios.delete()
-      
-    }catch (err){
-      
-    }
-  }
+  //console.log(trips[0].endTime >= "18:00" && trips[0].endTime < "7:00");
+
+  const logout = async () => {
+    try {
+      const res = await axios.delete(
+        "https://hfjn88-5000.preview.csb.app/auth/logout"
+      );
+
+      router.push("/login");
+    } catch (err) {}
+  };
 
   return (
     <div>
       <div>
         {/* logout */}
-        <p className="text-sm text-red-500 p-2"
-        onClick={logout}>Logout</p>
+        <p className="text-sm text-red-500 p-2" onClick={logout}>
+          Logout
+        </p>
       </div>
       <DriverCard name={username} vehicle={vehicleNumber} />
 
@@ -88,6 +94,7 @@ export default function Home() {
             endTime={trip.endTime}
             startLoc={trip.startLocation}
             endLoc={trip.endLocation}
+            approved={trip.aprroved}
           />
         </div>
       ))}

@@ -8,11 +8,12 @@ export default function TripCard({
   endLoc,
   startTime,
   endTime,
+  approved,
 }) {
   const [showContent, setShowContent] = useState();
   const totalTrip = endOdo - startOdo;
   return (
-    <div className="bg-white ">
+    <div className={!approved ? "bg-red-200 " : "bg-white"}>
       <div
         className="flex justify-between text-gray-700 p-3 mx-5 my-2 text-sm"
         onClick={() => setShowContent(!showContent)}

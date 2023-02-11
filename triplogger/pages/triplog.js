@@ -53,13 +53,22 @@ export default function TripLog() {
 
       const res = await axios.put(
         `https://hfjn88-5000.preview.csb.app/auth/driver/trip/${userId}`,
-        { trip }
+        {
+          date,
+          startTime,
+          endTime,
+          startLocation,
+          endLocation,
+          startOdometer,
+          endOdometer,
+        }
       );
 
       if (!res.data) {
         alert("unsuccessful");
       } else {
         alert("succesful");
+        router.push("/");
       }
     } catch (err) {}
   };
