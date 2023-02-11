@@ -22,7 +22,6 @@ export default function Home() {
         );
 
         if (!res.data) {
-          router.push("/login");
         }
         const info = await res.data;
 
@@ -31,6 +30,7 @@ export default function Home() {
         setTrips(info.dailyTrips);
       } catch (err) {
         console.log("Error getting user", err);
+        router.push("/login");
       }
     };
 
@@ -39,9 +39,44 @@ export default function Home() {
 
   console.log(username, vehicleNumber, trips);
 
+  let totalTrip = 0;
+  let totalWorkHours = 0;
+  // Total Trip Function
+  trips.forEach((data) => {
+    totalTrip += data.endOdometer - data.startOdometer;
+
+    // working hours
+    let startingTime = new Date(`${data.date}T${data.startTime}`).getTime();
+    let endingTime = new Date(`${data.date}T${data.endTime}`).getTime();
+    let workingHours = (endingTime - startingTime) / 60000 / 60;
+    totalWorkHours += workingHours;
+  });
+
+  console.log(totalWorkHours);
+  
+  const logout= async ()=>{
+    try{
+      const res= await axios.delete()
+      
+    }catch (err){
+      
+    }
+  }
+
   return (
     <div>
+      <div>
+        {/* logout */}
+        <p className="text-sm text-red-500 p-2"
+        onClick={logout}>Logout</p>
+      </div>
       <DriverCard name={username} vehicle={vehicleNumber} />
+
+      <div className="flex justify-between items-center mx-5">
+        <h1 className="text-xl p-2  font-bold text-gray-700">Trips</h1>
+
+        <p className="text-gray-600">Total Milage: {totalTrip} Km</p>
+      </div>
       {trips?.map((trip) => (
         <div key={trip._id}>
           <TripCard
