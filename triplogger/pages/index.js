@@ -4,12 +4,13 @@ import { useRouter } from "next/router";
 import DriverCard from "../Components/DriverCard";
 import TripCard from "../Components/TripCard";
 
-export default function Home() {
+export default function Home({ Useroles }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
   const [vehicleNumber, setVehicleNumber] = useState("");
   const [trips, setTrips] = useState([]);
+  const [userRole, setUserRole] = useState("");
   //get user
   useEffect(() => {
     const getUser = async () => {
@@ -28,6 +29,7 @@ export default function Home() {
         setUsername(info.username);
         setVehicleNumber(info.assignedVehicle);
         setTrips(info.dailyTrips);
+        setUserRole(info.roles);
       } catch (err) {
         console.log("Error getting user", err);
         router.push("/login");
@@ -36,6 +38,8 @@ export default function Home() {
 
     getUser();
   }, []);
+
+  Useroles = userRole;
 
   let totalTrip = 0;
   let totalWorkHours = 0;
@@ -67,6 +71,8 @@ export default function Home() {
       router.push("/login");
     } catch (err) {}
   };
+
+  //DRIVER FRONTEND
 
   return (
     <div>
