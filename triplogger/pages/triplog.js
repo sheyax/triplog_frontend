@@ -13,6 +13,7 @@ export default function TripLog() {
 
   const [userId, setUserId] = useState("");
   const [trips, setTrips] = useState([]);
+  const router = useRouter();
 
   //get user
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function TripLog() {
         setTrips(info.dailyTrips);
       } catch (err) {
         console.log("Error getting user", err);
+        router.push("/");
       }
     };
 

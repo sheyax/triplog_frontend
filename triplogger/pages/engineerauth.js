@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function Login() {
+export default function EngineerAuth() {
   const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,9 +13,9 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://hfjn88-5000.preview.csb.app/auth/driver/login",
+        "https://hfjn88-5000.preview.csb.app/auth/engineer/login",
         {
-          username,
+          engineerId: username,
           password,
         },
         {
@@ -30,7 +30,7 @@ export default function Login() {
         alert("succesful");
         setError("");
         console.log(await res.data);
-        router.push("/");
+        router.push("/engineerDash");
       }
     } catch (err) {
       setError("unsuccessful");
@@ -40,7 +40,7 @@ export default function Login() {
   return (
     <div>
       <div className="flex flex-col items-center mt-2">
-        <h1 className="m-auto font-semibold text-lg ">Driver Login</h1>
+        <h1 className="m-auto font-semibold text-lg ">Engineer Login</h1>
       </div>
       {error && <p>{error}</p>}
 
@@ -74,18 +74,6 @@ export default function Login() {
             Login
           </button>
         </form>
-        <div className="">
-          <h1
-            onClick={() => {
-              router.push("/engineerauth");
-            }}
-            className="p-2 text-md text-blue-500 
-          hover:scale-102 transition transfrom duration-300 ease-out
-          cursor-pointer"
-          >
-            Engineer Login
-          </h1>
-        </div>
       </div>
     </div>
   );

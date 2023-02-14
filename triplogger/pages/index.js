@@ -46,6 +46,7 @@ export default function Home({ Useroles }) {
   let totalOverTime = 0;
   // Total Trip Function
   trips.forEach((data) => {
+    if (!data.aprroved) return;
     totalTrip += data.endOdometer - data.startOdometer;
 
     // working hours

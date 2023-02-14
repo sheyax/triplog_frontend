@@ -1,6 +1,8 @@
+import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-export default function TripCard({
+export default function TripApproveCard({
   date,
   startOdo,
   endOdo,
@@ -9,9 +11,13 @@ export default function TripCard({
   startTime,
   endTime,
   approved,
+  tripId,
+  driverId,
 }) {
   const [showContent, setShowContent] = useState();
   const totalTrip = endOdo - startOdo;
+  const router = useRouter();
+
   return (
     <div className={!approved ? "bg-red-200 " : "bg-green-200"}>
       <div
@@ -48,6 +54,33 @@ export default function TripCard({
             >
               {endOdo}
             </p>
+          </div>
+
+          <div className="mx-5 p-2">
+            <button
+              onClick={() => {
+                try {
+                  const res = axios.put(
+                    `https://hfjn88-5000.preview.csb.app/feed/driver/${driverId}/dailytrips/${tripId}`,
+                    {
+                      withCredentials: true,
+                    }
+                  );
+                  console.log("succesful");
+                  alert("approved");
+                  router.reload(window.location.engineerDash);
+                } catch (err) {
+                  console.log("unsuccessful", err);
+                }
+              }}
+              className={
+                approved
+                  ? "hidden"
+                  : "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              }
+            >
+              Approve Trip
+            </button>
           </div>
         </div>
       )}
