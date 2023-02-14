@@ -7,7 +7,7 @@ export default function Header() {
   }/${current.getFullYear()}`;
 
   return (
-    <header>
+    <header className="sticky top-0 z-50">
       <div className="bg-blue-500 p-5 sticky z-50 flex justify-between items-center">
         <span className="font-bold text-white">Drivelog</span>
         <p className="font-bold text-white">{date}</p>

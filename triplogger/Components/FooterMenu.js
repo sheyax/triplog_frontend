@@ -3,7 +3,7 @@ import React from "react";
 
 export default function FooterMenu() {
   return (
-    <footer className="sticky top-[100vh]">
+    <footer className="sticky mt-auto">
       <div
         className="bg-white z-50 shadow-[0_-10px_10px_-15px_rgba(0,0,0,0.3)]
      flex justify-evenly p-5 items-center rounded-t-2xl"

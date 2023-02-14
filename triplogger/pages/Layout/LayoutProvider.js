@@ -4,9 +4,9 @@ import Header from "../../Components/Header";
 
 export default function LayoutProvider({ children }) {
   return (
-    <div className="min-h-screen bg-gray-200">
+    <div className="flex flex-col h-screen bg-gray-200">
       <Header />
-      <div>{children}</div>
+      <div className="flex-grow h-20 overflow-y-scroll">{children}</div>
       <FooterMenu />
     </div>
   );
