@@ -59,7 +59,12 @@ export default function Home({ Useroles }) {
     if (data.endTime >= "18:00" && data.endTime < "7:00") {
       totalOverTime += workingHours;
     }
+
+    //add outstation
   });
+
+  console.log("total work hours :", totalWorkHours);
+  console.log("total OverTime :", totalOverTime);
 
   //console.log(trips[0].endTime >= "18:00" && trips[0].endTime < "7:00");
 
